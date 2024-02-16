@@ -1,0 +1,21 @@
+.headerContainer {
+  width: 1280px;
+  padding: 18px, 14px, 18px, 14px;
+  height: 64px;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  background-color: #efeef4;
+  padding: 0 14px;
+  min-width: 0;
+}
+.loupeBtn {
+  margin-right: 4px;
+}
+.bagBtn {
+  margin-left: 4px;
+}
+/* .categories {
+  display: flex;
+  flex-direction: row;
+} */

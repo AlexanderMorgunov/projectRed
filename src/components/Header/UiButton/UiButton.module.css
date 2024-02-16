@@ -1,0 +1,39 @@
+.UiButton {
+  padding: 6px 8px 6px 8px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: #5c6970;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  gap: 4px;
+}
+.secondary {
+  color: #3625ff;
+}
+.UiButtonActive {
+  padding: 6px 8px 6px 8px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  background-color: #3625ff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  gap: 4px;
+}
+.circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+  background-color: white;
+}

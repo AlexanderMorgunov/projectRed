@@ -1,0 +1,65 @@
+.ProductContainer {
+  width: 320px;
+  height: 468px;
+  border: 1px solid white;
+  background-color: #efeef4;
+  padding: 15px;
+}
+.discount {
+  color: #3625ff;
+}
+.discountContainer {
+  background-color: white;
+  width: 108px;
+  border-radius: 4px;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.displayNone {
+  display: none;
+}
+.ratingContainer {
+  font-size: 14px;
+  font-weight: 500;
+  background-color: white;
+  border-radius: 4px;
+  width: 62px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.star {
+  width: 20px;
+  height: 20px;
+}
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.priceContainer {
+  display: flex;
+  flex-direction: row;
+}
+.discountPriceContainer {
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #3625ff;
+  color: white;
+  border-radius: 4px;
+  padding: 4px;
+  width: 71px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 10px;
+}
+.oldPrice {
+  text-decoration: line-through;
+  color: #5c6970;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,14 @@
+.CategoryButtonsGroup {
+  width: 1141px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+}
+.carousel {
+  display: flex;
+  flex-direction: row;
+  transition: all 1s;
+}
