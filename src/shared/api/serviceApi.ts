@@ -15,3 +15,13 @@ export const CategoriesApi = async (): Promise<string[]> => {
   );
   return response.data;
 };
+
+export const GetAllProductsForCategory = async (
+  category: string,
+  skip?: number
+): Promise<IPayloadApi> => {
+  const response: AxiosResponse<IPayloadApi> = await $api.get<IPayloadApi>(
+    `products/category/${category}?limit=10${skip ? `&skip=${skip}` : ""}`
+  );
+  return response.data;
+};

@@ -26,7 +26,6 @@ export const Product: FC<IProps> = ({ item }) => {
           off sale
         </div>
       )}
-      {/* {!readMore && <Carousel images={item.images} />} */}
       <Carousel images={item.images} disabled={readMore} />
       <div className={styles.ratingContainer}>
         <Star size={14} color="#3625FF" />

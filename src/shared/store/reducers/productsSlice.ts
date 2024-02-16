@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IPayloadApi, IProduct } from "../../types/types";
-import { ProductsApi } from "../../api/serviceApi";
+import { GetAllProductsForCategory, ProductsApi } from "../../api/serviceApi";
 import { CategoriesApi } from "../../api/serviceApi";
 
 interface IProductsState {
@@ -9,6 +9,7 @@ interface IProductsState {
   error: string | null;
   categories: string[];
   activeCategory: string;
+  productsForCategory: Array<IProduct>;
 }
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   status: "idle",
   error: null,
   activeCategory: "All",
+  productsForCategory: [],
 };
 
 export const getProducts = createAsyncThunk<
@@ -49,6 +51,28 @@ export const getCategories = createAsyncThunk<
       return thunkAPI.rejectWithValue(e.message);
     }
     return thunkAPI.rejectWithValue("Unknown error");
+  }
+});
+
+interface IGetProductsForCategory {
+  category: string;
+  skip?: number;
+}
+
+export const getProductsForCategory = createAsyncThunk<
+  IPayloadApi,
+  IGetProductsForCategory,
+  { rejectValue: string }
+>("products/getProductsForCategory", async (prop, thunkAPI) => {
+  try {
+    const response = await GetAllProductsForCategory(prop.category, prop?.skip);
+    return response;
+  } catch (e) {
+    if (e instanceof Error) {
+      return thunkAPI.rejectWithValue(e.message);
+    } else {
+      return thunkAPI.rejectWithValue("Unknown error");
+    }
   }
 });
 
@@ -86,6 +110,19 @@ const productsSlice = createSlice({
         state.error = action.payload as string;
       })
       .addCase(getCategories.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(getProductsForCategory.fulfilled, (state, action) => {
+        state.productsForCategory = action.payload.products;
+        state.status = "succeeded";
+        state.error = null;
+      })
+      .addCase(getProductsForCategory.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload as string;
+      })
+      .addCase(getProductsForCategory.pending, (state) => {
         state.status = "loading";
         state.error = null;
       });

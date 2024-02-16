@@ -1,6 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../../app/reduxHook";
 import { useEffect } from "react";
-import { getProducts } from "../../shared/store/reducers/productsSlice";
+import {
+  getProducts,
+  getProductsForCategory,
+} from "../../shared/store/reducers/productsSlice";
 import { Spinner } from "../Spinner/Spinner";
 import { Product } from "../Product/Product";
 import styles from "./Products.module.css";
@@ -10,8 +13,15 @@ export const Products = () => {
   useEffect(() => {
     dispatch(getProducts());
   }, []);
-  const { status, products } = useAppSelector((state) => state.products);
-  console.log(products);
+
+  const { status, products, activeCategory, productsForCategory } =
+    useAppSelector((state) => state.products);
+
+  useEffect(() => {
+    if (activeCategory !== "All") {
+      dispatch(getProductsForCategory({ category: activeCategory }));
+    }
+  }, [activeCategory]);
 
   switch (status) {
     case "loading":
@@ -19,9 +29,11 @@ export const Products = () => {
     case "succeeded":
       return (
         <div className={styles.ProductsContainer}>
-          {products.map((el) => {
-            return <Product item={el} key={el.id} />;
-          })}
+          {(activeCategory === "All" ? products : productsForCategory).map(
+            (el) => {
+              return <Product item={el} key={el.id} />;
+            }
+          )}
         </div>
       );
     case "failed":
