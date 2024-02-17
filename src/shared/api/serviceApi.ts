@@ -2,9 +2,9 @@ import { AxiosResponse } from "axios";
 import { IPayloadApi } from "../types/types";
 import { $api } from ".";
 
-export const ProductsApi = async (skip?: number): Promise<IPayloadApi> => {
+export const ProductsApi = async (skip: number): Promise<IPayloadApi> => {
   const response: AxiosResponse<IPayloadApi> = await $api.get<IPayloadApi>(
-    `products?limit=10${skip ? `&skip=${skip}` : ""}`
+    `products?limit=10&skip=${skip}`
   );
   return response.data;
 };
@@ -17,11 +17,10 @@ export const CategoriesApi = async (): Promise<string[]> => {
 };
 
 export const GetAllProductsForCategory = async (
-  category: string,
-  skip?: number
+  category: string
 ): Promise<IPayloadApi> => {
   const response: AxiosResponse<IPayloadApi> = await $api.get<IPayloadApi>(
-    `products/category/${category}?limit=10${skip ? `&skip=${skip}` : ""}`
+    `products/category/${category}`
   );
   return response.data;
 };

@@ -9,6 +9,7 @@ import { Bag } from "../Bag";
 
 interface IProps {
   item: IProduct;
+  ref?: unknown;
 }
 
 export const Product: FC<IProps> = ({ item }) => {

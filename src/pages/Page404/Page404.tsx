@@ -1,3 +1,3 @@
 export const Page404 = () => {
-  return <div>Нет страницы</div>;
+  return <div>Нет такой страницы</div>;
 };

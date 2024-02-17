@@ -10,6 +10,8 @@ interface IProductsState {
   categories: string[];
   activeCategory: string;
   productsForCategory: Array<IProduct>;
+  productsTotal: number;
+  productsSkip: number;
 }
 
 const initialState = {
@@ -19,11 +21,13 @@ const initialState = {
   error: null,
   activeCategory: "All",
   productsForCategory: [],
+  productsTotal: 0,
+  productsSkip: 0,
 };
 
 export const getProducts = createAsyncThunk<
   IPayloadApi,
-  number | undefined,
+  number,
   { rejectValue: string }
 >("products/getProducts", async (skip, thunkAPI) => {
   try {
@@ -56,7 +60,6 @@ export const getCategories = createAsyncThunk<
 
 interface IGetProductsForCategory {
   category: string;
-  skip?: number;
 }
 
 export const getProductsForCategory = createAsyncThunk<
@@ -65,7 +68,7 @@ export const getProductsForCategory = createAsyncThunk<
   { rejectValue: string }
 >("products/getProductsForCategory", async (prop, thunkAPI) => {
   try {
-    const response = await GetAllProductsForCategory(prop.category, prop?.skip);
+    const response = await GetAllProductsForCategory(prop.category);
     return response;
   } catch (e) {
     if (e instanceof Error) {
@@ -91,10 +94,10 @@ const productsSlice = createSlice({
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.products = !state.products.length
-          ? action.payload.products
-          : { ...state.products, ...action.payload.products };
+        state.products = [...state.products, ...action.payload.products];
         state.error = null;
+        state.productsTotal = action.payload.total;
+        state.productsSkip = state.productsSkip + 10;
       })
       .addCase(getProducts.rejected, (state, action) => {
         state.status = "failed";
@@ -114,7 +117,12 @@ const productsSlice = createSlice({
         state.error = null;
       })
       .addCase(getProductsForCategory.fulfilled, (state, action) => {
-        state.productsForCategory = action.payload.products;
+        state.productsForCategory =
+          state.productsForCategory.length > 1 &&
+          state.productsForCategory[0].category ===
+            action.payload.products[0].category
+            ? [...state.productsForCategory, ...action.payload.products]
+            : action.payload.products;
         state.status = "succeeded";
         state.error = null;
       })

@@ -32,7 +32,14 @@ export const Carousel: FC<IProps> = ({ images, disabled }) => {
           }}
         >
           {images.map((el) => {
-            return <img src={el} alt="image" className={styles.CarouseImage} />;
+            return (
+              <img
+                src={el}
+                alt="image"
+                className={styles.CarouseImage}
+                key={el}
+              />
+            );
           })}
         </div>
       </div>
@@ -47,9 +54,9 @@ export const Carousel: FC<IProps> = ({ images, disabled }) => {
               <button
                 className={clsx(styles.circle, {
                   [styles.circleActive]: i === currenntImage,
-                  // [styles.btnsGroupHidden]: false === isVisible,
                 })}
                 onClick={() => setImageHandler(i)}
+                key={i}
               ></button>
             );
           })}

@@ -1,7 +1,4 @@
-import {
-  FC,
-  // useState
-} from "react";
+import { FC } from "react";
 import styles from "./ProductDescription.module.css";
 
 interface IProps {
@@ -15,8 +12,6 @@ export const ProductDescription: FC<IProps> = ({
   readMore,
   setReadMore,
 }) => {
-  // const [readMore, setReadMore] = useState<boolean>(false);
-
   const description =
     text.length >= 80 ? (
       !readMore ? (

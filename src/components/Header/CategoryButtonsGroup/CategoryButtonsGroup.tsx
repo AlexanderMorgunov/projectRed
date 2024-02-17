@@ -5,6 +5,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { NavLink } from "react-router-dom";
+import styles from "./CategoryButtonsGroup.module.css";
 
 interface IProps {
   categories: string[];
@@ -18,14 +20,21 @@ export const CategoryButtonsGroup: FC<IProps> = ({
   setCategory,
 }) => {
   return (
-    <Swiper slidesPerView={12} spaceBetween={2} mousewheel={true}>
+    <Swiper slidesPerView={10} spaceBetween={1} mousewheel={true}>
       <SwiperSlide>
         <UiButton
           variant="primary"
           isActive={activeCategory === "All"}
           onClick={() => setCategory("All")}
         >
-          All
+          <NavLink
+            to={"/"}
+            className={({ isActive }) =>
+              `${isActive ? styles.navLinkActive : styles.navLink}`
+            }
+          >
+            All
+          </NavLink>
         </UiButton>
       </SwiperSlide>
       {categories.map((el) => {
@@ -36,7 +45,14 @@ export const CategoryButtonsGroup: FC<IProps> = ({
               isActive={activeCategory === el}
               onClick={() => setCategory(el)}
             >
-              {el}
+              <NavLink
+                to={el}
+                className={({ isActive }) =>
+                  `${isActive ? styles.navLinkActive : styles.navLink}`
+                }
+              >
+                {el}
+              </NavLink>
             </UiButton>
           </SwiperSlide>
         );
